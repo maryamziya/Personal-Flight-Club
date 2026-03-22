@@ -9,9 +9,12 @@ class DataManager:
     def __init__(self):
         self.token = os.getenv("token")
         self.sheety_url = os.getenv("sheety_url")
+        self.sheety_url_users = os.getenv("sheety_url_users")
+        self.token = os.getenv("token")
         self.sheety_header = {
         "Authorization": f"Bearer {self.token}"}
         self.destination_data = {}
+        self.customer_data = {}
 
     def get_destination_data(self):
         sheety_response = requests.get(url=self.sheety_url, headers=self.sheety_header)
@@ -31,3 +34,10 @@ class DataManager:
             response = requests.put(url=f"{self.sheety_url}/{city['id']}",json=new_data,headers=self.sheety_header)
             result = response.json()
             print(result)
+
+    def get_customer_emails(self):
+        response = requests.get(url=self.sheety_url_users, headers=self.sheety_header)
+        result = response.json()
+        self.customer_data = result["users"]
+        print("Users",self.customer_data)
+        return self.customer_data

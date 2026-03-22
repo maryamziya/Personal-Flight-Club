@@ -14,6 +14,13 @@ ORIGIN = "SFO"
 data_manager_obj = DataManager()
 flight_search_obj = FlightSearch()
 sheet_data = data_manager_obj.get_destination_data()
+users_data = data_manager_obj.get_customer_emails()
+email_list =  []
+
+for user in users_data:
+    email = user["whatIsYourEmail?"]
+    email_list.append(email)
+
 flight_data_obj = FlightData(None,ORIGIN,None,None,None)
 notification_manager_obj = NotificationManager()
 
@@ -41,6 +48,9 @@ for destination in sheet_data:
             print("low price")
             body = f"LOW PRICE ALERT!!! ONLY ${cheapest_flight.price} TO TRAVEL FROM {cheapest_flight.origin_airport_code} TO {cheapest_flight.destination_airport_code}!!! FROM {cheapest_flight.departure_date} UNTIL {cheapest_flight.return_date}!!!"
             notification_manager_obj.send_whatsapp(body=body)
+            print("whatsapp sent")
+            notification_manager_obj.send_email(email_body=body,email_list=email_list)
+
 
 
 

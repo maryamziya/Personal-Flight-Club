@@ -54,7 +54,7 @@ class FlightSearch:
             "destinationLocationCode":iata_code,
             "departureDate":tomorrow.strftime("%Y-%m-%d"),
             "returnDate":six_months_from_now.strftime("%Y-%m-%d"),
-            "adults":4,
+            "adults":1,
             "nonStop":"true",
             "currencyCode":"USD",
             "max":"10",
